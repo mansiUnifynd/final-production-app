@@ -1,0 +1,70 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "3ccc5d7e7bf466dedbafd73c92eb4f9e"
+name = "production-app"
+handle = "production-app-12"
+application_url = "https://production-app-nameless-feather-8430.fly.dev"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true
+
+[webhooks]
+api_version = "2025-04"
+
+  [[webhooks.subscriptions]]
+  topics = [
+  "app/scopes_update",
+  "checkouts/create",
+  "checkouts/update",
+  "customers/create",
+  "customers/update",
+  "fulfillment_events/create",
+  "fulfillment_events/delete",
+  "fulfillment_holds/added",
+  "fulfillment_holds/released",
+  "fulfillment_orders/cancellation_request_accepted",
+  "fulfillment_orders/cancellation_request_rejected",
+  "fulfillment_orders/cancellation_request_submitted",
+  "fulfillment_orders/cancelled",
+  "fulfillment_orders/line_items_prepared_for_pickup",
+  "fulfillments/update",
+  "order_transactions/create",
+  "orders/cancelled",
+  "orders/delete",
+  "orders/paid",
+  "orders/partially_fulfilled",
+  "refunds/create"
+]
+  uri = "/webhooks"
+
+  [[webhooks.subscriptions]]
+  topics = [ "carts/create" ]
+  uri = "/webhooks/app/carts-create"
+
+  [[webhooks.subscriptions]]
+  topics = [ "fulfillments/create", "orders/fulfilled", "orders/updated" ]
+  uri = "/webhooks/app/fulfillments"
+
+  [[webhooks.subscriptions]]
+  topics = [ "orders/create" ]
+  uri = "/webhooks/app/orders-create"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_branding_settings,read_content,read_customer_events,read_customers,read_delivery_customizations,read_draft_orders,read_fulfillments,read_inventory,read_marketing_events,read_markets,read_merchant_managed_fulfillment_orders,read_online_store_navigation,read_order_edits,read_orders,read_payment_customizations,read_purchase_options,read_third_party_fulfillment_orders,write_customers,write_fulfillments,write_orders,write_pixels"
+
+[auth]
+redirect_urls = [
+  "https://production-app-nameless-feather-8430.fly.dev/auth/callback",
+  "https://production-app-nameless-feather-8430.fly.dev/auth/shopify/callback",
+  "https://production-app-nameless-feather-8430.fly.dev/api/auth/callback"
+]
+
+[pos]
+embedded = false
