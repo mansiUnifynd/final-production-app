@@ -13,6 +13,7 @@
 
 
 import { register } from '@shopify/web-pixels-extension';
+import {mixpanel_token} from '../../credentials.json'
 
 // ✅ Custom event name mapping — place it here at the top
 const eventNameMap = {
@@ -108,7 +109,7 @@ function getParentIdByChildId(childId) {
 //   return child ? child.id : null;
 // }
 
-const mixpanelToken = "8f25e7ad6f912954ce63a4ac331ed541";
+// const mixpanelToken = "8f25e7ad6f912954ce63a4ac331ed541";
 
 register(({ analytics }) => {
   analytics.subscribe('all_standard_events', async (event) => {
@@ -128,7 +129,7 @@ register(({ analytics }) => {
 
     // ✅ Send User Profile Data to Mixpanel
     const userProfilePayload = {
-      $token: mixpanelToken,
+      $token: mixpanel_token,
       $distinct_id: clientId,
       $set: {
         $created_at: new Date().toISOString()
@@ -147,7 +148,7 @@ register(({ analytics }) => {
         event: eventType,
         properties: {
           distinct_id: clientId,
-          token: mixpanelToken,
+          token: mixpanel_token,
           persistence: 'localStorage',
           timeStamp: timeStamp,
           $insert_id: eventId,
@@ -212,7 +213,7 @@ register(({ analytics }) => {
               event: elementid,
               properties: {
                 distinct_id: clientId,
-                token: mixpanelToken,
+                token: mixpanel_token,
                 parent_element_id: parentId,
                 ...flatEventData,
                 ...utmParams

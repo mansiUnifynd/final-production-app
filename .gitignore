@@ -14,8 +14,7 @@ database.sqlite
 .env
 .env.*
 
-
-
+**/credentials.json
 
 
 /extensions/*/dist
