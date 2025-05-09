@@ -13,7 +13,8 @@
 
 
 import { register } from '@shopify/web-pixels-extension';
-import {mixpanel_token} from '../../credentials.json'
+import {mixpanel_token} from '../../credentials.json';
+import {appURL} from '../../credentials.json';
 
 // ✅ Custom event name mapping — place it here at the top
 const eventNameMap = {
@@ -172,7 +173,7 @@ register(({ analytics }) => {
       console.log("Mixpanel Event Response:", responseData);
 
       // ✅ Send clientId to your backend
-      const appURL = process.env.APP_URL;
+      // const appURL = process.env.APP_URL;
       await fetch(`${appURL}/api/store-clientId`, {
         method: 'POST',
         headers: {
