@@ -3,12 +3,8 @@
 client_id = "3ccc5d7e7bf466dedbafd73c92eb4f9e"
 name = "production-app"
 handle = "production-app-12"
-application_url = "https://production-app-nameless-feather-8430.fly.dev"
+application_url = "https://hoped-commitments-briefing-wilson.trycloudflare.com"
 embedded = true
-
-[build]
-automatically_update_urls_on_dev = true
-include_config_on_deploy = true
 
 [webhooks]
 api_version = "2025-04"
@@ -44,6 +40,10 @@ api_version = "2025-04"
   uri = "/webhooks/app/carts-create"
 
   [[webhooks.subscriptions]]
+  topics = [ "carts/update" ]
+  uri = "/webhooks/app/carts-update"
+
+  [[webhooks.subscriptions]]
   topics = [ "fulfillments/create", "orders/fulfilled", "orders/updated" ]
   uri = "/webhooks/app/fulfillments"
 
@@ -61,10 +61,14 @@ scopes = "read_assigned_fulfillment_orders,read_cart_transforms,read_checkout_br
 
 [auth]
 redirect_urls = [
-  "https://production-app-nameless-feather-8430.fly.dev/auth/callback",
-  "https://production-app-nameless-feather-8430.fly.dev/auth/shopify/callback",
-  "https://production-app-nameless-feather-8430.fly.dev/api/auth/callback"
+  "https://hoped-commitments-briefing-wilson.trycloudflare.com/auth/callback",
+  "https://hoped-commitments-briefing-wilson.trycloudflare.com/auth/shopify/callback",
+  "https://hoped-commitments-briefing-wilson.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
 embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true

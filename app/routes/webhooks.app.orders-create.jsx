@@ -1,7 +1,5 @@
-
 import { authenticate } from "../shopify.server";
 import { clientIdStore } from "./api.store-clientId"; // Import the clientIdStore and send it as discinct_id
-import {mixpanel_token} from '../../credentials.json'
 export const action = async ({ request }) => {
   const { shop, topic, payload } = await authenticate.webhook(request);
 
@@ -18,7 +16,7 @@ export const action = async ({ request }) => {
     const mixpanelEvent = {
       event: "Purchased",
       properties: {
-        token: mixpanel_token,
+        token: "5b1e136ab5f2e01c3ad5116151e68860",
         distinct_id: latestClientId || "unknown", // Use clientId if available, otherwise fallback
         checkout_token: payload.checkout_token,
         shop,
