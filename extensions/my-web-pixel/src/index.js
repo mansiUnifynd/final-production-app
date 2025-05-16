@@ -13,6 +13,11 @@
 
 
 import { register } from '@shopify/web-pixels-extension';
+import {mixpanel_token} from '../../credentials.json';
+import {app_url} from '../../credentials.json';
+console.log("app_url", app_url);
+
+const token = mixpanel_token;
 
 // ✅ Custom event name mapping — place it here at the top
 const eventNameMap = {
@@ -108,7 +113,7 @@ function getParentIdByChildId(childId) {
 //   return child ? child.id : null;
 // }
 
-const mixpanelToken = "5b1e136ab5f2e01c3ad5116151e68860";
+// const mixpanelToken = "5b1e136ab5f2e01c3ad5116151e68860";
 
 register(({ analytics }) => {
   analytics.subscribe('all_standard_events', async (event) => {
@@ -128,7 +133,7 @@ register(({ analytics }) => {
 
     // ✅ Send User Profile Data to Mixpanel
     const userProfilePayload = {
-      $token: mixpanelToken,
+      $token: token,
       $distinct_id: clientId,
       $set: {
         $created_at: new Date().toISOString()
@@ -147,7 +152,7 @@ register(({ analytics }) => {
         event: eventType,
         properties: {
           distinct_id: clientId,
-          token: mixpanelToken,
+          token: token,
           persistence: 'localStorage',
           timeStamp: timeStamp,
           $insert_id: eventId,
@@ -171,7 +176,8 @@ register(({ analytics }) => {
       console.log("Mixpanel Event Response:", responseData);
 
       // ✅ Send clientId to your backend
-      const appURL = process.env.APP_URL;
+      // const appURL = process.env.APP_URL;
+      const appURL = app_url;
       await fetch(`${appURL}/api/store-clientId`, {
         method: 'POST',
         headers: {
@@ -212,7 +218,7 @@ register(({ analytics }) => {
               event: elementid,
               properties: {
                 distinct_id: clientId,
-                token: mixpanelToken,
+                token: token,
                 parent_element_id: parentId,
                 ...flatEventData,
                 ...utmParams
